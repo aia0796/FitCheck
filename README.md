@@ -2,6 +2,13 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+## Add FIT token contract address to wallet
+
+Contract address : 0xFbe4bbca16F83f6F491bD22913219CA67849a531
+
+[Verify FIT on testnet](https://testnet.aiascan.com/token/0xFbe4bbca16F83f6F491bD22913219CA67849a531)
+
+
 First, run the development server:
 
 ```bash

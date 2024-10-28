@@ -7,7 +7,9 @@ import {
     X
 } from 'lucide-react';
 import Link from 'next/link';
-
+import { BrowserProvider, ethers } from 'ethers';
+import contractAddress from "../contractInfo/contractAddress.json"
+import contractAbi from "../contractInfo/contractAbi.json"
 
 declare global {
     interface Window {
@@ -25,7 +27,6 @@ const ExplorePage = () => {
     const [bookingTrainer, setBookingTrainer] = useState<any>(null)
     const [walletAddress, setWalletAddress] = useState('');
     const [walletConnected, setWalletConnected] = useState(false);
-
 
 
     const connectWallet = async () => {
@@ -51,6 +52,7 @@ const ExplorePage = () => {
         // Here you would handle the actual booking logic
         setBookingTrainer(null);
         // You could show a success message or handle the booking confirmation
+        deposit()
     };
 
     const dailyRewards = [
@@ -67,12 +69,36 @@ const ExplorePage = () => {
         if (!dailyRewards[day - 1].claimed) {
             setClaimedDay(day);
             setShowReward(true);
+            withdraw(dailyRewards[day - 1].coins)
             setTimeout(() => {
                 setShowReward(false);
-                setClaimedDay(null);
+                // setClaimedDay(null);
             }, 2000);
         }
     };
+
+    const deposit = async ()=> {
+        const {abi} = contractAbi;
+        const provider = new BrowserProvider(window.ethereum);
+        console.log(bookingTrainer, "===============")
+        const signer = await provider.getSigner();
+        const address = await signer.getAddress();
+        const bounceContract = new ethers.Contract(contractAddress.address, abi, signer)
+    
+        await (await bounceContract.donate(address,"0x94A7Af5edB47c3B91d1B4Ffc2CA535d7aDA8CEDe", ethers.parseUnits(bookingTrainer.coins.toString(), 18))).wait();
+      
+      }
+      const withdraw = async (amount)=> {
+        const {abi} = contractAbi;
+        const provider = new BrowserProvider(window.ethereum);
+    
+        const signer = await provider.getSigner();
+        const address = await signer.getAddress();
+        const bounceContract = new ethers.Contract(contractAddress.address, abi, signer)
+    
+        await (await bounceContract.mint(address, ethers.parseUnits(amount.toString(), 18))).wait();
+      
+      }
 
     const trainers = [
         {
