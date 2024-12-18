@@ -79,6 +79,9 @@ const ExplorePage = () => {
 
     const deposit = async ()=> {
         const {abi} = contractAbi;
+        if(!window.ethereum){
+            return
+        }
         const provider = new BrowserProvider(window.ethereum);
         console.log(bookingTrainer, "===============")
         const signer = await provider.getSigner();
@@ -88,7 +91,10 @@ const ExplorePage = () => {
         await (await bounceContract.donate(address,"0x94A7Af5edB47c3B91d1B4Ffc2CA535d7aDA8CEDe", ethers.parseUnits(bookingTrainer.coins.toString(), 18))).wait();
       
       }
-      const withdraw = async (amount)=> {
+      const withdraw = async (amount:any)=> {
+        if(!window.ethereum){
+            return
+        }
         const {abi} = contractAbi;
         const provider = new BrowserProvider(window.ethereum);
     
