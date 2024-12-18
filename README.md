@@ -4,9 +4,9 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Add FIT token contract address to wallet
 
-Contract address : 0x2E5D0330F3253cb67c250e53B9541F89EaE465d4
+Contract address : 0x313E1C6708Ae5d984924d4A3C30617f2f12fdEbd
 
-[Verify FIT on testnet](https://testnet.aiascan.com/token/0x2E5D0330F3253cb67c250e53B9541F89EaE465d4)
+[Verify FIT on testnet](https://explorer.sepolia.mantle.xyz/token/0x313E1C6708Ae5d984924d4A3C30617f2f12fdEbd)
 
 
 First, run the development server:
